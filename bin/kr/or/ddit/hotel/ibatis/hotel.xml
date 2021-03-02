@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	이 xml문서는 ibatis에서 실행할 SQL문을 작성하는 문서입니다.
+-->
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/dtd-map-2.dtd">
+
+<sqlMap namespace="hotel">
+	<update id="updateCheckIn" parameterClass="HotelVo">
+		UPDATE hotel SET room_user = #room_user# 
+		WHERE room_no = #room_no#
+	</update>
+	
+	<update id="updateCheckOut" parameterClass="int">
+		UPDATE hotel SET room_user = '-' 
+		WHERE room_no = #room_no#
+	</update>
+	
+	<select id="getAllHotelList" resultClass="HotelVo">
+		SELECT * FROM hotel
+	</select>
+	
+	<select id="checkRoom" resultClass="int" parameterClass="int">
+		SELECT COUNT(*) FROM hotel WHERE room_no = #room_no#
+	</select>
+	
+	<select id="checkRoomUser" resultClass="int" parameterClass="int">
+		SELECT COUNT(*) FROM hotel 
+		WHERE room_no = #room_no# AND room_user = '-' 
+	</select>
+	
+	<select id="checkUserName" resultClass="int" parameterClass="String">
+		SELECT COUNT(*) FROM hotel 
+		WHERE room_user = #room_user#
+	</select>
+	
+</sqlMap>

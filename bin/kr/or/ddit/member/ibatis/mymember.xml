@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	이 xml문서는 ibatis에서 실행할 SQL문을 작성하는 문서입니다.
+-->
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/dtd-map-2.dtd">
+
+<sqlMap namespace="mymember">
+	<insert id="insertMember" parameterClass="MemberVo">
+		insert into mymember(mem_id, mem_name, mem_tel, mem_addr)
+		values (#mem_id#, #mem_name#, #mem_tel#, #mem_addr#)
+	</insert>
+	
+	<update id="updateMember" parameterClass="MemberVo">
+		UPDATE mymember SET mem_name = #mem_name#, mem_tel = #mem_tel#, mem_addr = #mem_addr# 
+		WHERE mem_id = #mem_id#
+	</update>
+	
+	<delete id="deleteMember" parameterClass="String">
+		DELETE mymember WHERE mem_id=#mem_id#
+	</delete>
+	
+	<select id="getAllMemeber" resultClass="MemberVo">
+		SELECT * FROM mymember
+	</select>
+	
+	<select id="countMember" parameterClass="String" resultClass="int">
+		SELECT count(*) FROM mymember WHERE mem_id = #mem_id#
+	</select>
+	
+	<update id="updateMemberName" parameterClass="MemberVo">
+		UPDATE mymember SET mem_name =#mem_name#  WHERE mem_id = #mem_id#
+	</update>
+	
+	<update id="updateMemberTel" parameterClass="MemberVo">
+		UPDATE mymember SET mem_tel =#mem_tel#  WHERE mem_id = #mem_id#
+	</update>
+	
+	<update id="updateMemberAddr" parameterClass="MemberVo">
+		UPDATE mymember SET mem_addr =#mem_addr#  WHERE mem_id = #mem_id#
+	</update>
+	
+	<!--  
+		Map을 parameterClass로 받아서 처리할 때의 변수명은 Map의 'key값'으로 지정한다.
+		#여기안에 따옴표가 붙음#
+		파라미터로 가져온 값을 컬럼명등의 자리에서 사용할 경우에는
+		달러($)기호를 사용해서 나타낸다.
+		예) $변수명$	또는	 $key값$
+	-->
+	<update id="updateMember2" parameterClass="java.util.Map">
+		UPDATE mymember SET $field$ = #data# WHERE mem_id=#mem_id#
+	</update>
+</sqlMap>
+
+
+
+
+
+
+
+
+
